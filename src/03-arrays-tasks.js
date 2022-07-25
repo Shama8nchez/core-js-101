@@ -233,8 +233,9 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  return arr.reduce((prev, item) => prev
+    .concat(prev.length > 0 ? prev[prev.length - 1] + item : item), []);
 }
 
 /**
@@ -517,8 +518,12 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((prev, item) => {
+    if (prev.has(keySelector(item))) prev.get(keySelector(item)).push(valueSelector(item));
+    else prev.set(keySelector(item), [valueSelector(item)]);
+    return prev;
+  }, new Map());
 }
 
 
